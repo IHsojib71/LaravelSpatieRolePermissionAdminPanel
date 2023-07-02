@@ -15,6 +15,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-                @include('layouts.sidebar')
+    <div class="flex flex-col lg:flex-row md:flex-row">
+        <div class="basis-1/4 pt-4 w-12">
+            @include('layouts.sidebar')
+        </div>
+        <div class="basis-3/4 pl-4 pt-8 md:pt-0 lg:pt-0">
+            {{$slot}}
+        </div>
+    </div>
+
     </body>
 </html>

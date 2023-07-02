@@ -33,9 +33,9 @@
         class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
         onclick="dropdown()"
     >
-        <i class="fa-solid fa-message"></i>
+        <i class="fa-solid fa-user"></i>
         <div class="flex justify-between w-full items-center">
-            <span class="text-[15px] ml-4 text-gray-200 font-bold">Chatbox</span>
+            <span class="text-[15px] ml-4 text-gray-200 font-bold">User Management</span>
             <span class="text-sm" id="arrow">
             <i class="fa-solid fa-chevron-up"></i>
           </span>
@@ -45,22 +45,36 @@
         class="text-left text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold"
         id="submenu"
     >
-        <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-            Social
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-            Personal
-        </h1>
+
+        <a href="{{ route('admin.roles.index') }}"><h1
+                class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 {{request()->routeIs('admin.roles.index') ? 'bg-blue-600' : ''}}">
+                Roles</h1>
+        </a>
+
+        <a href="{{route('admin.permissions.index')}}">
+            <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 {{request()->routeIs('admin.permissions.index') ? 'bg-blue-600' : ''}}">
+                Permissions
+            </h1>
+        </a>
         <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
             Friends
         </h1>
     </div>
-    <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-    >
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
-    </div>
+    <form method="POST" action="{{ route('logout') }}">
+        <div
+            class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+            onclick="event.preventDefault();this.closest('form').submit();"
+        >
+            <i class="fa-solid fa-right-from-bracket"></i>
+            @csrf
+
+            <span class="text-[15px] ml-4 text-gray-200 font-bold"
+                  onclick="event.preventDefault();this.closest('form').submit();">
+                Logout
+            </span>
+
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
@@ -69,7 +83,6 @@
         document.querySelector("#arrow").classList.toggle("rotate-180");
     }
     dropdown();
-
     function openSidebar() {
         document.querySelector(".sidebar").classList.toggle("hidden");
     }
