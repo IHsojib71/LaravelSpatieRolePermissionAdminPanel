@@ -16,7 +16,7 @@
                     <div>
                         <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
                         <div class="mt-2.5">
-                            <input type="text" name="name" id="name" autocomplete="given-name" class="w-full rounded-md focus:outline-none border-2 border-solid">
+                            <input type="text" name="name" id="name" value="{{ old('name') ?? '' }}" autocomplete="given-name" class="w-full rounded-md focus:outline-none border-2 border-solid">
                         </div>
                         @error('name') <span class="text-red-400 text-sm">{{$message}}</span>@enderror
                     </div>

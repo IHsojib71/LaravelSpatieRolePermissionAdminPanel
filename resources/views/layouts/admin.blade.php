@@ -20,6 +20,17 @@
             @include('layouts.sidebar')
         </div>
         <div class="basis-3/4 pl-4 pt-8 md:pt-0 lg:pt-0">
+            <div class="w-full m-6 pl-4" x-data="{open:true}" x-show="open">
+                @if(Session::has('success'))
+                    <span class="w-1/2 inline-flex items-center rounded-md bg-green-50 px-6 py-4 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">{{Session::get('success')}}
+                    </span>
+                    <button @click="open=false" class="ml-4" title="Close"><i class="fa-solid fa-xmark text-red-600 hover:font-bold hover:text-red-200"></i></button>
+                @endif
+                @if(Session::has('error'))
+                    <span class="w-1/2 inline-flex items-center rounded-md bg-red-50 px-6 py-4 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/20">{{Session::get('error')}}</span>
+                        <button @click="open=false" class="ml-4" title="Close"><i class="fa-solid fa-xmark text-red-600 hover:font-bold hover:text-red-200"></i></button>
+                    @endif
+            </div>
             {{$slot}}
         </div>
     </div>

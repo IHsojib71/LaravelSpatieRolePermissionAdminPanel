@@ -13,7 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::whereNotIn('name', ['admin'])->get();
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -72,6 +72,6 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         if($role->delete())
             return to_route('admin.roles.index')->with('success', 'Role deleted successfully!');
-        return to_route('admin.roles.index')->with('error', 'Something went wrong   !');
+        return to_route('admin.roles.index')->with('error', 'Something went wrong!');
     }
 }
