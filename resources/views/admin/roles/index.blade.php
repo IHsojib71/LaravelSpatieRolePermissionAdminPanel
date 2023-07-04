@@ -30,9 +30,14 @@
                                     {{$role->name}}
                                 </td>
 
-                                <td class="px-6 py-4">
-                                    <a href="" class="mr-4" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="" class="ml-4" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                                <td class="flex justify-center mt-4">
+                                    <a href="{{route('admin.roles.edit', $role->id)}}" class="mr-4" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form method="post" action="{{route('admin.roles.destroy', $role->id)}}">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                    </form>
+
                                 </td>
                             </tr>
                         @endforeach

@@ -48,7 +48,8 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $permission= Permission::findOrFail($id);
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
@@ -56,7 +57,10 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $valid = $request->validate(['name' => ['required', 'min:3']]);
+        $permission = Permission::findOrFail($id);
+        $permission->update($valid);
+        return to_route('admin.permissions.index')->with('success', 'Permission updated successfully!');
     }
 
     /**
@@ -64,6 +68,9 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        if($permission->delete())
+            return to_route('admin.permissions.index')->with('success', 'Permission deleted successfully!');
+        return to_route('admin.permissions.index')->with('error', 'Something went wrong   !');
     }
 }

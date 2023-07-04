@@ -49,7 +49,8 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        return view('admin.roles.edit', compact('role'));
     }
 
     /**
@@ -57,7 +58,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $valid = $request->validate(['name' => ['required', 'min:3']]);
+        $role = Role::findOrFail($id);
+        $role->update($valid);
+        return to_route('admin.roles.index')->with('success', 'Role updated successfully!');
     }
 
     /**
@@ -65,6 +69,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        if($role->delete())
+            return to_route('admin.roles.index')->with('success', 'Role deleted successfully!');
+        return to_route('admin.roles.index')->with('error', 'Something went wrong   !');
     }
 }
