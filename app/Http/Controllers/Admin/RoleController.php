@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -47,19 +48,17 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Role $role)
     {
-        $role = Role::findOrFail($id);
         return view('admin.roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
         $valid = $request->validate(['name' => ['required', 'min:3']]);
-        $role = Role::findOrFail($id);
         $role->update($valid);
         return to_route('admin.roles.index')->with('success', 'Role updated successfully!');
     }
@@ -67,11 +66,21 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        $role = Role::findOrFail($id);
         if($role->delete())
             return to_route('admin.roles.index')->with('success', 'Role deleted successfully!');
         return to_route('admin.roles.index')->with('error', 'Something went wrong!');
+    }
+
+    public function assignPermissionForm(Role $role)
+    {
+        $permissions = Permission::all();
+        return view('admin.roles.assign-permission', compact('permissions','role'));
+    }
+    public function assignPermission(Request $request, Role $role)
+    {
+       $role->syncPermissions($request->selected_permissions);
+        return back()->with('success', 'Permission assigned successfully!');
     }
 }

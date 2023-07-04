@@ -31,13 +31,13 @@
                                 </td>
 
                                 <td class="flex justify-center mt-4">
+                                    <a href="{{route('admin.roles.assign.permission.form', $role->id)}}" class="mr-4" title="Permissions"><i class="fa-solid fa-shield-halved"></i></a>
                                     <a href="{{route('admin.roles.edit', $role->id)}}" class="mr-4" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <form method="post" action="{{route('admin.roles.destroy', $role->id)}}">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" title="Delete"><i class="fa-solid fa-trash"></i></button>
                                     </form>
-
                                 </td>
                             </tr>
                         @endforeach

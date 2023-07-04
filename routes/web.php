@@ -27,6 +27,8 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified', 'role:admin'])->name('admin.')->prefix('admin')->group(function (){
     Route::view('/', 'admin.index')->name('index');
     Route::resource('/roles', RoleController::class);
+    Route::get('roles/assign/permission/form/{role}',[RoleController::class,'assignPermissionForm'])->name('roles.assign.permission.form');
+    Route::post('roles/assign/permission/{role}',[RoleController::class,'assignPermission'])->name('roles.assign.permission');
     Route::resource('/permissions', PermissionController::class);
 });
 
