@@ -45,6 +45,10 @@
         class="text-left text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold"
         id="submenu"
     >
+        <a href="{{ route('admin.users.index') }}"><h1
+                class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 {{request()->routeIs('admin.users.index') ? 'bg-blue-600' : ''}}">
+                Users</h1>
+        </a>
 
         <a href="{{ route('admin.roles.index') }}"><h1
                 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 {{request()->routeIs('admin.roles.index') ? 'bg-blue-600' : ''}}">
@@ -56,9 +60,7 @@
                 Permissions
             </h1>
         </a>
-        <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-            Friends
-        </h1>
+
     </div>
     <form method="POST" action="{{ route('logout') }}">
         <div

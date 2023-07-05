@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified', 'role:admin'])->name('admin.')->prefix('admin')->group(function (){
     Route::view('/', 'admin.index')->name('index');
+    Route::resource('/users', UserController::class);
+    Route::get('users/assign/role/form/{user}',[UserController::class,'assignRoleForm'])->name('users.assign.role.form');
+    Route::post('users/assign/role/{user}',[UserController::class,'assignRole'])->name('users.assign.role');
     Route::resource('/roles', RoleController::class);
     Route::get('roles/assign/permission/form/{role}',[RoleController::class,'assignPermissionForm'])->name('roles.assign.permission.form');
     Route::post('roles/assign/permission/{role}',[RoleController::class,'assignPermission'])->name('roles.assign.permission');
