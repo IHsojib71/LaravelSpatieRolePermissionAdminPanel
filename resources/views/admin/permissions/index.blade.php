@@ -27,10 +27,10 @@
                                 <td class="px-6 py-4">
                                     {{$permission->name}}
                                 </td>
-
                                 <td class="flex justify-center mt-4">
+                                    <a href="{{route('admin.permissions.assign.role.form', $permission->id)}}" class="mr-4" title="Roles"><i class="fa-solid fa-shield-halved"></i></a>
                                     <a href="{{route('admin.permissions.edit', $permission->id)}}" class="mr-4" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <form method="post" action="{{route('admin.permissions.destroy', $permission->id)}}">
+                                    <form method="post" action="{{route('admin.permissions.destroy', $permission->id)}}" onsubmit="return confirm('Are you sure ?')">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" title="Delete"><i class="fa-solid fa-trash"></i></button>

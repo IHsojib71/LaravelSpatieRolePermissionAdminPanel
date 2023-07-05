@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
@@ -72,5 +73,17 @@ class PermissionController extends Controller
         if($permission->delete())
             return to_route('admin.permissions.index')->with('success', 'Permission deleted successfully!');
         return to_route('admin.permissions.index')->with('error', 'Something went wrong   !');
+    }
+
+    public function assignRoleForm (Permission $permission)
+    {
+        $roles = Role::all();
+        return view('admin.permissions.assign-roles', compact('permission','roles'));
+    }
+
+    public function assignRole(Request $request, Permission $permission)
+    {
+        $permission->syncRoles($request->selected_roles);
+        return back()->with('success', 'Roles assigned successfully!');
     }
 }

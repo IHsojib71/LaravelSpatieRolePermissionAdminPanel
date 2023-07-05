@@ -30,6 +30,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->name('admin.')->prefix('a
     Route::get('roles/assign/permission/form/{role}',[RoleController::class,'assignPermissionForm'])->name('roles.assign.permission.form');
     Route::post('roles/assign/permission/{role}',[RoleController::class,'assignPermission'])->name('roles.assign.permission');
     Route::resource('/permissions', PermissionController::class);
+    Route::get('permissions/assign/permission/form/{permission}',[PermissionController::class,'assignRoleForm'])->name('permissions.assign.role.form');
+    Route::post('permissions/assign/permission/{permission}',[PermissionController::class,'assignRole'])->name('permissions.assign.role');
 });
 
 Route::middleware('auth')->group(function () {
