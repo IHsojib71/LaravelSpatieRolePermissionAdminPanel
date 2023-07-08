@@ -4,12 +4,32 @@
        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
 </svg>
     </div>
-    <div class="relative w-full max-w-md sm:-ml-2">
+    <div class="relative w-56 max-w-sm sm:-ml-2">
       <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="absolute h-6 w-6 mt-2.5 ml-2 text-gray-400">
         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
       </svg>
       <input type="text" role="search" placeholder="Search..." class="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg" />
     </div>
+
+     {{-- alert --}}
+     <div class="m-6 pl-4" x-data="{open:true}" x-show="open">
+      @if(Session::has('success'))
+      <div class="animate-pulse bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-full relative" role="alert">
+        <strong class="font-bold">Success!</strong>
+        <span class="block sm:inline">{{Session::get('success')}}</span>
+      <button @click="open=false" class="ml-4" title="Close"><i class="fa-solid fa-xmark text-red-600 hover:font-bold hover:text-red-200"></i></button>
+      </div>
+      @endif
+      @if(Session::has('error'))
+      <div class="animate-pulse bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-full relative" role="alert">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">{{Session::get('error')}}</span>
+      <button @click="open=false" class="ml-4" title="Close"><i class="fa-solid fa-xmark text-red-600 hover:font-bold hover:text-red-200"></i></button>
+      </div>
+      @endif
+      </div>
+
+      {{-- end alert --}}
     <div class="flex flex-shrink-0 items-center ml-auto">
       <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg" @click="panel = !panel" @click.away="panel = false">
         <span class="sr-only">User Menu</span>
