@@ -1,42 +1,59 @@
 <x-app-layout>
 
-    <div class="w-full">
-        <div class="max-w-7xl m-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden">
-                <div class="flex justify-between lg:flex-row md:flex-row pt-6 pl-6 pr-6 text-gray-900">
-                    <h1 class="font-bold">Create Role</h1>
-                    <a href="{{route('admin.users.index')}}" class="px-4 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-600">
-                        <i class="fa-solid fa-chevron-left"></i>  Back
-                    </a>
-                </div>
-                {{--                form start  --}}
-                <form action="{{route('admin.users.assign.role', $user->id)}}" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
-                    @csrf
-                    <div>
-                        <label for="selected_roles" class="block text-sm font-semibold leading-6 text-gray-900 mb-4">Roles</label>
-                        <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
-                            @foreach($roles as $role)
-                                <div>
-                                    <input type="checkbox" class="form-checkbox text-slate-600 mr-4" value="{{$role->name}}" name="selected_roles[]" @foreach($user->roles as $rp) {{ $rp->name == $role->name ? 'checked' : '' }} @endforeach>
-                                    <label>{{$role->name}}</label><br>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button
-                            type="submit"
-                            class="border border-gray-800 bg-gray-800 text-white rounded-md px-4 py-2 mt-4 transition duration-500 ease select-none hover:bg-gray-600 focus:outline-none focus:shadow-outline"
-                        >
-                            Assign
-                        </button>
-                    </div>
-
-                </form>
-
-                {{--                end form--}}
-            </div>
+    <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+        <div class="mr-6">
+          <h1 class="text-4xl font-semibold mb-2">Assign Roles</h1>
+          <h2 class="text-gray-600 ml-0.5">Multiple Roles Assignment For Selected User</h2>
         </div>
+        <div class="flex flex-wrap items-start justify-end -mb-3">
+          
+          <a href="{{route('admin.users.index')}}" class="inline-flex px-5 py-3 text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-lg ml-6 mb-3">
+            <i class="fa-solid fa-chevron-left mt-1 mr-2"></i>
+            Back
+          </a>
+        </div>
+      </div>
+
+      <section>
+        <div class="rounded-lg bg-white p-4">
+            
+            <form action="{{route('admin.users.assign.role', $user->id)}}" method="POST">
+                @csrf
+                <div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 mx-auto">
+                        @foreach($roles as $role)
+                            <div>
+                                <input type="checkbox" class="form-checkbox text-slate-600 mr-4" value="{{$role->name}}" name="selected_roles[]" @foreach($user->roles as $rp) {{ $rp->name == $role->name ? 'checked' : '' }} @endforeach>
+                                <label>{{$role->name}}</label><br>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <br>
+                <div class="flex justify-end mt-4">
+                    <button
+                        type="submit"
+                        class="inline-flex px-5 py-3 text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-lg ml-6 mb-3"
+                    >
+                        Assign
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        
+    
+      </section>
+
     </div>
+               
+
+                   
+  
 </x-app-layout>
+
+                   
+             
+
+
+            
