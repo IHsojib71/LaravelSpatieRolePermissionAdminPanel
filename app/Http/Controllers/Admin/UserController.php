@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -36,7 +38,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -70,22 +72,20 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-      $valid = $request->validate([
+        $valid = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
         ]);
-        if($valid['password']!=null){
-            if($user->update($valid))
-            return to_route('admin.users.index')->with('success', 'User Updated!');
+        if ($valid['password'] != null) {
+            if ($user->update($valid))
+                return to_route('admin.users.index')->with('success', 'User Updated!');
+        } else {
+            if ($user->update(Arr::except($valid, ['password'])))
+                return to_route('admin.users.index')->with('success', 'User Updated!');
         }
-        else{
-            if($user->update(Arr::except($valid, ['password'])))
-            return to_route('admin.users.index')->with('success', 'User Updated!');
-        }
-        
+
         return back()->with('error', 'Something went wrong!');
-    
     }
 
     /**
@@ -93,20 +93,30 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->delete())
+        if ($user->delete())
             return back()->with('success', 'Successfully Deleted!');
         return back()->with('error', 'Something went wrong!');
-
     }
-    public function assignRoleForm (User $user)
+    public function assignRoleForm(User $user)
     {
         $roles = Role::all();
-        return view('admin.users.assign-roles', compact('user','roles'));
+        return view('admin.users.assign-roles', compact('user', 'roles'));
     }
 
     public function assignRole(Request $request, User $user)
     {
         $user->syncRoles($request->selected_roles);
         return back()->with('success', 'Roles assigned successfully!');
+    }
+    public function assignPermissionForm(User $user)
+    {
+        $permissions = Permission::all();
+        return view('admin.users.assign-permissions', compact('user', 'permissions'));
+    }
+
+    public function assignPermission(Request $request, User $user)
+    {
+        $user->syncPermissions($request->selected_permissions);
+        return back()->with('success', 'Permissions assigned successfully!');
     }
 }

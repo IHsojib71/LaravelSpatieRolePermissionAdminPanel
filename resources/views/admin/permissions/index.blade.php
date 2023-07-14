@@ -20,6 +20,7 @@
                 <thead class="bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-4 font-medium text-gray-900">Permission Name</th>
+                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Roles</th>
                     <th scope="col" class="px-6 py-4 font-medium text-gray-900">Action</th>
                 </tr>
                 </thead>
@@ -29,6 +30,15 @@
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4">
                             {{$permission->name}}
+                        </td>
+                        <td class="px-6 py-4">
+                          <div class="flex flex-row justify-center space-x-2">
+                          @forelse($permission->roles as $role)
+                                  <span class="bg-green-400 text-white rounded-full py-1 px-2 text-sm">{{$role->name}}</span>
+                           @empty
+                               <span>No Role Assigned!</span>
+                          @endforelse
+                              </div>
                         </td>
                         <td class="flex justify-center mt-4">
                             <a href="{{route('admin.permissions.assign.role.form', $permission->id)}}" class="mr-4" title="Roles"><i class="fa-solid fa-shield-halved"></i></a>

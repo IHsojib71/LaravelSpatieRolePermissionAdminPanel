@@ -22,6 +22,7 @@
                     <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
                     <th scope="col" class="px-6 py-4 font-medium text-gray-900">Email</th>
                     <th scope="col" class="px-6 py-4 font-medium text-gray-900">Roles</th>
+                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">Permissions</th>
                     <th scope="col" class="px-6 py-4 font-medium text-gray-900">Action</th>
                 </tr>
                 </thead>
@@ -36,11 +37,21 @@
                             @forelse($user->roles as $role)
                                     <span class="bg-green-400 text-white rounded-full py-1 px-2 text-sm">{{$role->name}}</span>
                              @empty
-                                 <span>No Roles Assigned!</span>
+                                 <span>No Role Assigned!</span>
                             @endforelse
                                 </div>
                         </td>
+                        <td class="px-6 py-4">
+                          <div class="flex flex-row justify-center space-x-2">
+                          @forelse($user->permissions as $permission)
+                                  <span class="bg-green-400 text-white rounded-full py-1 px-2 text-sm">{{$permission->name}}</span>
+                           @empty
+                               <span>No Permission Assigned!</span>
+                          @endforelse
+                              </div>
+                        </td>
                         <td class="flex justify-center mt-4">
+                            <a href="{{route('admin.users.assign.permission.form', $user->id)}}" class="mr-4" title="Assign Permission"><i class="fa-solid fa-shield-halved"></i></a>
                             <a href="{{route('admin.users.assign.role.form', $user->id)}}" class="mr-4" title="Assign Role"><i class="fa-solid fa-shield-halved"></i></a>
                             <a href="{{route('admin.users.edit', $user->id)}}" class="mr-4" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                             <form method="post" action="{{route('admin.users.destroy', $user->id)}}" onsubmit="return confirm('Are you sure ?')">
