@@ -34,11 +34,11 @@
       <button class="relative inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg" @click="panel = !panel" @click.away="panel = false">
         <span class="sr-only">User Menu</span>
         <div class="hidden md:flex md:flex-col md:items-end md:leading-tight" >
-          <span class="font-semibold">Sinan AYDOĞAN</span>
-          <span class="text-sm text-gray-600">Quality Engineer</span>
+          <span class="font-semibold">{{Auth::user()->name}}</span>
+          {{-- <span class="text-sm text-gray-600">Quality Engineer</span> --}}
         </div>
         <span class="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
-          <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="user profile photo" class="h-full w-full object-cover">
+          <img src="" alt="user profile photo" class="h-full w-full object-cover">
         </span>
         <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="hidden sm:block h-6 w-6 text-gray-300">
           <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

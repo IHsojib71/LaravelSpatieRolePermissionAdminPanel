@@ -1,39 +1,50 @@
 <x-app-layout>
 
-    <div class="w-full">
-        <div class="max-w-7xl m-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden">
-                <div class="flex justify-between lg:flex-row md:flex-row pt-6 pl-6 pr-6 text-gray-900">
-                    <h1 class="font-bold">Create Role</h1>
-                    <a href="{{route('admin.roles.index')}}" class="px-4 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-600">
-                        <i class="fa-solid fa-chevron-left"></i>  Back
-                    </a>
+    <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+        <div class="mr-6">
+          <h1 class="text-4xl font-semibold mb-2">Create Role</h1>
+          <h2 class="text-gray-600 ml-0.5">New Role Form</h2>
+        </div>
+        <div class="flex flex-wrap items-start justify-end -mb-3">
+          
+          <a href="{{route('admin.roles.index')}}" class="inline-flex px-5 py-3 text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-lg ml-6 mb-3">
+            <i class="fa-solid fa-chevron-left mt-1 mr-2"></i>
+            Back
+          </a>
+        </div>
+      </div>
+
+      <section>
+        <div class="rounded-lg bg-white p-4">
+            <form action="{{route('admin.roles.store')}}" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
+                @csrf
+                <div>
+                    <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
+                    <div class="mt-2.5">
+                        <input type="text" name="name" id="name" value="{{ old('name') ?? '' }}" autocomplete="given-name" class="w-full rounded-md focus:outline-none border-2 border-solid">
+                    </div>
+                    @error('name') <span class="text-red-400 text-sm">{{$message}}</span>@enderror
                 </div>
 
-{{--                form start  --}}
-                <form action="{{route('admin.roles.store')}}" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
-                        @csrf
-                        <div>
-                            <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
-                            <div class="mt-2.5">
-                                <input type="text" name="name" id="name" value="{{ old('name') ?? '' }}" autocomplete="given-name" class="w-full rounded-md focus:outline-none border-2 border-solid">
-                            </div>
-                            @error('name') <span class="text-red-400 text-sm">{{$message}}</span>@enderror
-                        </div>
-
-                    <div class="flex justify-end">
-                        <button
-                            type="submit"
-                            class="border border-gray-800 bg-gray-800 text-white rounded-md px-4 py-2 mt-4 transition duration-500 ease select-none hover:bg-gray-600 focus:outline-none focus:shadow-outline"
-                        >
-                            Submit
-                        </button>
-                    </div>
-
-                </form>
-
-{{--                end form--}}
+            <div class="flex justify-end mt-4">
+                <button
+                    type="submit"
+                    class="inline-flex px-5 py-3 text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-lg ml-6 mb-3"
+                >
+                    Submit
+                </button>
             </div>
+
+        </form>  
         </div>
+        
+    
+      </section>
+
     </div>
+               
+
+                   
+  
 </x-app-layout>
+
