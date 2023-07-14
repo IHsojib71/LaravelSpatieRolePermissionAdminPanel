@@ -15,6 +15,29 @@
       </div>
 
       <section>
+       
+          <form>
+            <div class="flex justify-between">
+            <div class="flex mb-4">
+            <x-text-input id="search"  type="text" name="search" :value="request('search')"  placeholder="search" />
+            <x-secondary-button class="ml-2" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+             </x-secondary-button>
+              </div>  
+              <div>
+                <select onchange="this.form.submit()" id="per_page_result" name="per_page_result" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-2.5">
+                  <option selected>Per Page</option>
+                  <option value="10" {{ request('per_page_result') == 10 ? "selected" : "" }}>10</option>
+                  <option value="20" {{ request('per_page_result') == 20 ? "selected" : "" }}>20</option>
+                  <option value="30" {{ request('per_page_result') == 30 ? "selected" : "" }}>30</option>
+                  <option value="40" {{ request('per_page_result') == 40 ? "selected" : "" }}>40</option>
+                </select>
+            
+              </div>
+            </div>
+          </form>
+       
+        
         <div class="rounded-lg bg-white p-4">
             <table class="w-full border-collapse bg-white text-center text-sm text-gray-500">
                 <thead class="bg-gray-50">
@@ -56,7 +79,9 @@
                 </tbody>
             </table>
         </div>
-        
+        <div class="mt-4">
+          {{ $permissions->links() }}
+        </div>
     
       </section>
 
