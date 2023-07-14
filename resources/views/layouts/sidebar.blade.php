@@ -19,7 +19,7 @@
         <nav class="flex flex-col mx-4 my-6 space-y-4">
 
             <a href="{{ route('admin.index') }}"
-                class="inline-flex items-center py-3 {{request()->routeIs('admin.index') ? 'text-blue-600 bg-white rounded-lg ' : ''}} px-2"
+                class="inline-flex items-center py-3 rounded-lg hover:text-gray-400 hover:bg-gray-700 {{request()->routeIs('admin.index') ? 'text-blue-600 bg-white rounded-lg ' : ''}} px-2"
                 :class="{ 'justify-start': menu, 'justify-center': menu == false }">
                 <i class="fa-solid fa-chart-column h-4 w-6"></i>
                 <span class="ml-2" x-show="menu">Dashboard</span>
